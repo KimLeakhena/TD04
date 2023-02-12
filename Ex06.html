@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./tailwindcss.js"></script>
+    <style>
+        .wrapper
+        {
+            width: 70%;
+            height: 600px;
+            /* display: flex; */
+            margin: auto;
+            border: 5px solid black;
+            background-color: aquamarine;
+            
+        }
+       
+        .sidebar
+        {
+            background: rgb(5, 68, 104);
+            position: fixed;
+           top: 0px;
+           left: 0px;
+           width: 250px;
+           height: 95%;
+           
+        }
+        .sidebar .toggle-btn
+        {
+            position: absolute;
+            top: 10px;
+            right: -40px;
+            width: 30px;
+            height: 30px;
+            background-color: rgb(243, 142, 26);
+        }
+        .sidebar .toggle-btn span
+        {
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background-color: blanchedalmond;
+            transform: translate(-50%);
+        }
+        .sidebar .toggle-btn span:nth-child(-1)
+        {
+            top: 10%;
+        }
+        .sidebar .toggle-btn span:nth-child(2)
+        {
+            top: 50%;
+        }
+        .sidebar .toggle-btn span:nth-child(3)
+        {
+            top: 90%;
+        }
+        .sidebar .links a {
+            display: block;
+            padding: 15px 10px;
+            text-decoration: none;
+            color: #f5f5f5;
+            cursor: pointer;
+            border-bottom: 1px solid #1b1b1b;
+        }
+        .sidebar .links a.active,
+        .sidebar .links a:hover
+        {
+            background-color: #222;
+            color: #00ace0;
+        }
+        .sidebar .links a i 
+        {
+            display: inline-block;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- <div class="wrapper"> -->
+        
+        <div class="sidebar">
+            <div class="toggle-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="link">
+                <a href="#">
+                    Home
+                </a>
+            
+                <a href="#">
+                    About
+                </a>
+                <a href="#">
+                    project
+                </a>
+                <a href="#">
+                    Contact
+                </a>
+            </div>
+        </div>
+
+
+    </div>
+    <script>
+        function myFunction(x) {
+          x.classList.toggle("change");
+        }
+        </script>
+        
+</body>
+</html>

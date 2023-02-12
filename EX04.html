@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./tailwindcss.js"></script>
+
+    <style>
+        .button {
+        border: 2px solid #0c0909;
+        border-radius: 2px;
+        padding: 0 8px;
+        background-color: #68afe6;
+        }
+
+        .button:hover {
+        background-color: #222222;
+        color: #F1F5F8;
+        }
+
+        .button:active {
+        box-shadow: 0 0 10px #222222;
+        }
+
+        ::-webkit-scrollbar {
+        width: 5px;
+        background-color: #F1F5F8;
+        }
+
+        ::-webkit-scrollbar-thumb {
+        background-color: #222222;
+        /* border-radius: 8px; */
+        } 
+
+
+        #colorContainer {
+        overflow-y: auto;
+        }
+
+        #generatedColor {
+        text-shadow: 1px 1px 1px white;
+        }
+
+        #header {
+        text-shadow: 1px 1px 1px #381010;
+
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper w-[600px] absolute left-[50%] top-[50%] translate-x-[-50%]
+        translate-y-[-50%]  border-solid border-4 border-black">
+        <div class="">
+        <center>
+            <h1 class="text-blue-500 text-[1.5rem] py-[10px] w-full "
+            id="header">Random Color Generator</h1>
+            <div class="bg-blue-500 w-full  mx-auto py-[20px] border-black 
+            shadow-[#292D3E] " id="boxColor">
+            <div class="w-[80%] mx-auto bg-[#222222]  text-white text-[2rem] py-[10px]">
+                <h1 class="">Background Color: </h1>
+                <h1 id="generatedColor" >#2336FB</h1>
+            </div>
+            <div class="mt-[20px] font-medium">
+                <button class="button" onclick="generateColor()">GENERATE</button>
+                <button class="button" onclick="resetColor()">RESET</button>
+            </div>
+
+            </div>
+        </center>
+        <!-- content -->
+        <div class="w-full h-[400px] mt-[10px] ">
+            <div class="w-full h-[90%] m-auto my-[4%]  bg-green-200  overflow-auto
+            justify-start content-start px-[50px] py-[20px] shadow-[#292D3E]"
+            id="colorContainer">
+
+            </div>
+        </div>
+        </div>
+  </div>
+    <script>
+        var recordColors = document.getElementById("colorContainer");
+        var box = document.getElementById("boxColor");
+        var code = document.getElementById("generatedColor");
+        var header = document.getElementById("header");
+
+        class Color {
+        randomnum = [];
+
+        constructor() {
+            this.randomnum = this.getRandomnuber();
+            this.display();
+            changeColor(this.randomnum[this.randomnum.length - 1]);
+        }
+
+        generate() {
+            const hexValue = [1, 2, 3, 4, 5, 6, 7, 8, 9, 'a', 'b', 'c', 'd', 'e', 'f'];
+            var color = '#';
+            for (let i = 0; i < 6; i++) {
+            var index = Math.floor(Math.random() * hexValue.length);
+            color += hexValue[index];
+            }
+            this.randomnum.push(color);
+            rander(color);
+            changeColor(color);
+        }
+
+        getRandomnuber() {
+            if (localStorage.getItem("generatedColors") != null)
+            return JSON.parse(localStorage.getItem("generatedColors"))
+            else return [];
+        }
+
+        reset() {
+            this.randomnum.length = 0;
+            recordColors.innerHTML = '';
+            changeColor("NaN");
+        }
+
+        display() {
+            this.randomnum.forEach(color => { 
+            rander(color);
+            });
+        }
+
+        }
+
+        function rander(color) {
+        recordColors.innerHTML += `
+        <div class="flex justify-start gap-[5%] w-[26%] h-[1.8rem]">
+            <div class="w-[1.5rem] rounded-md h-[1.5rem] bg-[${color}] active:shadow-[${color}] 
+            active:shadow-lg" id="${color}" onclick="changeColor(this.id)"></div>
+            <div>
+            <p>${color}</p>
+            </div>
+        </div>
+        `;
+        }
+
+        function changeColor(color) {
+        code.innerHTML = `${color}`;
+        code.style.color = `${color}`;
+        box.style.background = `${color}`;
+        header.style.color =  `${color}`;
+        recordColors.style.boxShadow = `0 5px 10px ${color}`;
+        }
+
+        const colors = new Color;
+
+        const generateColor = () => {
+        colors.generate();
+        saveToLocalstorage(colors);
+        }
+
+        const resetColor = () => {
+        colors.reset();
+        saveToLocalstorage(colors);
+        }
+
+        const saveToLocalstorage = (colors) => {
+        localStorage.setItem("generatedColors", JSON.stringify(colors.randomnum));
+        }
+    </script>
+</body>
+</html>
